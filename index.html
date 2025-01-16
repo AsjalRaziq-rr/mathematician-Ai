@@ -6,11 +6,8 @@
     <title>Mathematical Genius AI</title>
     <!-- Preload the font -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap" as="style">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap" rel="stylesheet">
     <style>
-        /* Ensure font is loaded */
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap');
-
         body {
             font-family: 'Arial', sans-serif;
             line-height: 1.6;
@@ -192,13 +189,12 @@
         }
 
         .symbol-btn {
-            font-family: 'Noto Sans Math', monospace;
             background: white;
             border: 1px solid #ddd;
             padding: 6px 12px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
             transition: all 0.2s;
             min-width: 36px;
             height: 34px;
@@ -207,6 +203,9 @@
             justify-content: center;
             flex-shrink: 0;
             line-height: 1;
+            font-weight: normal;
+            text-align: center;
+            color: #000;
         }
 
         .symbol-btn:hover {
@@ -244,30 +243,6 @@
         .scroll-right {
             right: 5px;
         }
-
-        /* Symbol fallbacks */
-        .symbol-btn[data-symbol="±"]::before { content: "\00B1"; }
-        .symbol-btn[data-symbol="×"]::before { content: "\00D7"; }
-        .symbol-btn[data-symbol="÷"]::before { content: "\00F7"; }
-        .symbol-btn[data-symbol="≠"]::before { content: "\2260"; }
-        .symbol-btn[data-symbol="≈"]::before { content: "\2248"; }
-        .symbol-btn[data-symbol="≤"]::before { content: "\2264"; }
-        .symbol-btn[data-symbol="≥"]::before { content: "\2265"; }
-        .symbol-btn[data-symbol="α"]::before { content: "\03B1"; }
-        .symbol-btn[data-symbol="β"]::before { content: "\03B2"; }
-        .symbol-btn[data-symbol="γ"]::before { content: "\03B3"; }
-        .symbol-btn[data-symbol="π"]::before { content: "\03C0"; }
-        .symbol-btn[data-symbol="θ"]::before { content: "\03B8"; }
-        .symbol-btn[data-symbol="∑"]::before { content: "\2211"; }
-        .symbol-btn[data-symbol="∫"]::before { content: "\222B"; }
-        .symbol-btn[data-symbol="∂"]::before { content: "\2202"; }
-        .symbol-btn[data-symbol="√"]::before { content: "\221A"; }
-        .symbol-btn[data-symbol="∞"]::before { content: "\221E"; }
-        .symbol-btn[data-symbol="∈"]::before { content: "\2208"; }
-        .symbol-btn[data-symbol="∉"]::before { content: "\2209"; }
-        .symbol-btn[data-symbol="⊂"]::before { content: "\2282"; }
-        .symbol-btn[data-symbol="∪"]::before { content: "\222A"; }
-        .symbol-btn[data-symbol="∩"]::before { content: "\2229"; }
     </style>
 </head>
 <body>
@@ -293,28 +268,86 @@
             <div class="math-symbols-toolbar">
                 <button class="scroll-btn scroll-left" onclick="scrollSymbols('left')">←</button>
                 <div class="symbols-scroll" id="symbolsScroll">
-                    <button class="symbol-btn" data-symbol="±" onclick="insertSymbol('±')"></button>
-                    <button class="symbol-btn" data-symbol="×" onclick="insertSymbol('×')"></button>
-                    <button class="symbol-btn" data-symbol="÷" onclick="insertSymbol('÷')"></button>
-                    <button class="symbol-btn" data-symbol="≠" onclick="insertSymbol('≠')"></button>
-                    <button class="symbol-btn" data-symbol="≈" onclick="insertSymbol('≈')"></button>
-                    <button class="symbol-btn" data-symbol="≤" onclick="insertSymbol('≤')"></button>
-                    <button class="symbol-btn" data-symbol="≥" onclick="insertSymbol('≥')"></button>
-                    <button class="symbol-btn" data-symbol="α" onclick="insertSymbol('α')"></button>
-                    <button class="symbol-btn" data-symbol="β" onclick="insertSymbol('β')"></button>
-                    <button class="symbol-btn" data-symbol="γ" onclick="insertSymbol('γ')"></button>
-                    <button class="symbol-btn" data-symbol="π" onclick="insertSymbol('π')"></button>
-                    <button class="symbol-btn" data-symbol="θ" onclick="insertSymbol('θ')"></button>
-                    <button class="symbol-btn" data-symbol="∑" onclick="insertSymbol('∑')"></button>
-                    <button class="symbol-btn" data-symbol="∫" onclick="insertSymbol('∫')"></button>
-                    <button class="symbol-btn" data-symbol="∂" onclick="insertSymbol('∂')"></button>
-                    <button class="symbol-btn" data-symbol="√" onclick="insertSymbol('√')"></button>
-                    <button class="symbol-btn" data-symbol="∞" onclick="insertSymbol('∞')"></button>
-                    <button class="symbol-btn" data-symbol="∈" onclick="insertSymbol('∈')"></button>
-                    <button class="symbol-btn" data-symbol="∉" onclick="insertSymbol('∉')"></button>
-                    <button class="symbol-btn" data-symbol="⊂" onclick="insertSymbol('⊂')"></button>
-                    <button class="symbol-btn" data-symbol="∪" onclick="insertSymbol('∪')"></button>
-                    <button class="symbol-btn" data-symbol="∩" onclick="insertSymbol('∩')"></button>
+                    <!-- Basic Operations -->
+                    <button class="symbol-btn" onclick="insertSymbol('+')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">+</button>
+                    <button class="symbol-btn" onclick="insertSymbol('-')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">-</button>
+                    <button class="symbol-btn" onclick="insertSymbol('×')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#215;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('÷')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#247;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('=')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">=</button>
+                    
+                    <!-- Comparison -->
+                    <button class="symbol-btn" onclick="insertSymbol('≠')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8800;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('>')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&gt;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('<')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&lt;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('≥')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8805;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('≤')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8804;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('≈')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8776;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('≡')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8801;</button>
+                    
+                    <!-- Greek Letters -->
+                    <button class="symbol-btn" onclick="insertSymbol('α')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#945;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('β')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#946;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('γ')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#947;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('θ')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#952;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('π')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#960;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('Σ')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#931;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('Δ')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#916;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('λ')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#955;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('μ')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#956;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('Ω')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#937;</button>
+                    
+                    <!-- Mathematical Operators -->
+                    <button class="symbol-btn" onclick="insertSymbol('±')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#177;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∓')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8723;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('√')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8730;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∛')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8731;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∜')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8732;</button>
+                    
+                    <!-- Calculus and Advanced Math -->
+                    <button class="symbol-btn" onclick="insertSymbol('∑')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8721;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∏')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8719;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∫')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8747;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∬')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8748;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∭')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8749;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∮')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8750;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∂')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8706;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∇')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8711;</button>
+                    
+                    <!-- Set Theory -->
+                    <button class="symbol-btn" onclick="insertSymbol('∈')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8712;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∉')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8713;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('⊂')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8834;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('⊃')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8835;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∪')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8746;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∩')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8745;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∅')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8709;</button>
+                    
+                    <!-- Logic -->
+                    <button class="symbol-btn" onclick="insertSymbol('∧')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8743;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∨')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8744;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('¬')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#172;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('⇒')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8658;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('⇔')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8660;</button>
+                    
+                    <!-- Other Mathematical Symbols -->
+                    <button class="symbol-btn" onclick="insertSymbol('∞')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8734;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∝')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8733;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∠')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8736;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('⊥')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8869;</button>
+                    <button class="symbol-btn" onclick="insertSymbol('∥')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">&#8741;</button>
+                    
+                    <!-- Brackets -->
+                    <button class="symbol-btn" onclick="insertSymbol('(')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">(</button>
+                    <button class="symbol-btn" onclick="insertSymbol(')')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">)</button>
+                    <button class="symbol-btn" onclick="insertSymbol('[')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">[</button>
+                    <button class="symbol-btn" onclick="insertSymbol(']')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">]</button>
+                    <button class="symbol-btn" onclick="insertSymbol('{')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">{</button>
+                    <button class="symbol-btn" onclick="insertSymbol('}')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">}</button>
+                    <button class="symbol-btn" onclick="insertSymbol('|')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">|</button>
+                    
+                    <!-- Superscript and Other -->
+                    <button class="symbol-btn" onclick="insertSymbol('^')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">^</button>
+                    <button class="symbol-btn" onclick="insertSymbol('°')" style="font-family: Arial Unicode MS, Segoe UI Symbol, sans-serif">°</button>
                 </div>
                 <button class="scroll-btn scroll-right" onclick="scrollSymbols('right')">→</button>
             </div>
@@ -338,10 +371,8 @@
             <div class="example-question" onclick="useExample(this)">Calculate the area of a circle with radius 7 units</div>
         </div>
     </div>
-    <script type="module">
-        import { askMathematician } from './index.js';
-
-        // Ensure font is loaded before displaying symbols
+    <script>
+        // Remove visibility: hidden from body style first
         document.fonts.ready.then(() => {
             document.body.style.visibility = 'visible';
         });
@@ -416,18 +447,24 @@
             responseDiv.textContent = '';
 
             try {
-                const answer = await askMathematician(questionInput.value, currentImage);
+                // Placeholder for API call
+                const answer = "This is a placeholder response. API integration needed.";
                 responseDiv.innerHTML = answer.replace(/\n/g, '<br>');
             } catch (error) {
                 responseDiv.textContent = 'Error: ' + error.message;
             } finally {
                 loadingDiv.style.display = 'none';
             }
-        }
+        };
 
         window.useExample = function(element) {
             document.getElementById('question').value = element.textContent;
-        }
+        };
+
+        // Initialize when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Any initialization code can go here
+        });
     </script>
 </body>
 </html>
