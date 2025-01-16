@@ -11,7 +11,6 @@
         /* Ensure font is loaded */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap');
 
-        /* Rest of your styles remain the same */
         body {
             font-family: 'Arial', sans-serif;
             line-height: 1.6;
@@ -21,32 +20,232 @@
             min-height: 100vh;
         }
 
-        /* Previous styles remain unchanged... */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-        /* Updated symbol button styles */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .input-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .response-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            min-height: 100px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            display: none;
+        }
+
+        .example-questions {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+        }
+
+        .example-questions h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .example-question {
+            cursor: pointer;
+            color: #3498db;
+            margin: 5px 0;
+        }
+
+        .example-question:hover {
+            text-decoration: underline;
+        }
+
+        .image-upload {
+            margin-bottom: 15px;
+            border: 2px dashed #e0e0e0;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 6px;
+        }
+
+        .remove-image {
+            background-color: #e74c3c;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .remove-image:hover {
+            background-color: #c0392b;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-btn {
+            background-color: #2ecc71;
+            display: inline-block;
+        }
+
+        .upload-btn:hover {
+            background-color: #27ae60;
+        }
+
+        /* Math symbols toolbar styles */
+        .math-symbols-toolbar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            position: relative;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            padding: 0 40px;
+            height: 50px;
+        }
+
+        .symbols-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            gap: 5px;
+            padding: 8px 0;
+            width: 100%;
+        }
+
+        .symbols-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
         .symbol-btn {
-            font-family: 'Noto Sans Math', monospace !important;
+            font-family: 'Noto Sans Math', monospace;
             background: white;
             border: 1px solid #ddd;
             padding: 6px 12px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 20px; /* Increased font size */
+            font-size: 16px;
             transition: all 0.2s;
-            min-width: 40px; /* Increased min-width */
-            height: 40px; /* Increased height */
+            min-width: 36px;
+            height: 34px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             line-height: 1;
-            font-weight: normal;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Add fallback symbols using a different Unicode range */
+        .symbol-btn:hover {
+            background: #f0f0f0;
+            border-color: #bbb;
+        }
+
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #fff;
+            border: 1px solid #ddd;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 1;
+            padding: 0;
+        }
+
+        .scroll-btn:hover {
+            background: #f0f0f0;
+            border-color: #bbb;
+        }
+
+        .scroll-left {
+            left: 5px;
+        }
+
+        .scroll-right {
+            right: 5px;
+        }
+
+        /* Symbol fallbacks */
         .symbol-btn[data-symbol="±"]::before { content: "\00B1"; }
         .symbol-btn[data-symbol="×"]::before { content: "\00D7"; }
         .symbol-btn[data-symbol="÷"]::before { content: "\00F7"; }
@@ -69,20 +268,26 @@
         .symbol-btn[data-symbol="⊂"]::before { content: "\2282"; }
         .symbol-btn[data-symbol="∪"]::before { content: "\222A"; }
         .symbol-btn[data-symbol="∩"]::before { content: "\2229"; }
-
-        .symbol-btn::before {
-            font-family: 'Noto Sans Math', monospace !important;
-        }
-
-        /* Rest of your styles remain the same */
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Previous header content remains the same -->
+        <div class="header">
+            <h1>Mathematical Genius AI</h1>
+            <p>Ask any mathematical question and get step-by-step solutions!</p>
+        </div>
+
         <div class="input-section">
             <div class="image-upload">
-                <!-- Image upload section remains the same -->
+                <div class="file-input-wrapper">
+                    <button class="upload-btn">Upload Image</button>
+                    <input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)">
+                </div>
+                <p>Upload an image of your mathematical problem (optional)</p>
+                <div class="image-preview" id="imagePreview">
+                    <img id="previewImg" src="" alt="Preview">
+                </div>
+                <button class="remove-image" id="removeImage" onclick="removeImage()">Remove Image</button>
             </div>
 
             <div class="math-symbols-toolbar">
