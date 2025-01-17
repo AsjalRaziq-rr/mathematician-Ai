@@ -4,393 +4,382 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mathematical Genius AI</title>
+    <!-- Preload fonts for better performance -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
+            font-family: 'Noto Sans Math', 'STIX Two Math', 'Cambria Math', 'Latin Modern Math', 'Arial Unicode MS', 'Segoe UI Symbol', sans-serif;
             margin: 0;
             padding: 20px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
+            background-color: #f5f5f5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
+            background: white;
             padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            color: #2c3e50;
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .input-section {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
 
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 16px;
-            margin-bottom: 15px;
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        button {
-            background-color: #3498db;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #2980b9;
-        }
-
-        .response-section {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            min-height: 100px;
-        }
-
-        .loading {
-            text-align: center;
-            color: #666;
-            font-style: italic;
-            display: none;
-        }
-
-        .example-questions {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 8px;
-        }
-
-        .example-questions h3 {
-            margin-top: 0;
-            color: #2c3e50;
-        }
-
-        .example-question {
-            cursor: pointer;
-            color: #3498db;
-            margin: 5px 0;
-        }
-
-        .example-question:hover {
-            text-decoration: underline;
-        }
-
-        .image-upload {
-            margin-bottom: 15px;
-            border: 2px dashed #e0e0e0;
-            padding: 15px;
-            border-radius: 6px;
-            text-align: center;
-        }
-
-        .image-preview {
-            max-width: 100%;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .image-preview img {
-            max-width: 100%;
-            max-height: 300px;
-            border-radius: 6px;
-        }
-
-        .remove-image {
-            background-color: #e74c3c;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .remove-image:hover {
-            background-color: #c0392b;
-        }
-
-        .file-input-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-        }
-
-        .file-input-wrapper input[type=file] {
-            font-size: 100px;
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .upload-btn {
-            background-color: #2ecc71;
-            display: inline-block;
-        }
-
-        .upload-btn:hover {
-            background-color: #27ae60;
-        }
-
-        /* Updated styles for scrollable math symbols bar */
-        .math-symbols-toolbar {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            position: relative;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-            padding: 0 40px;
-            height: 50px;
-        }
-
-        .symbols-scroll {
+        .symbol-bar {
             display: flex;
             overflow-x: auto;
-            scroll-behavior: smooth;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
-            gap: 5px;
-            padding: 8px 0;
-            width: 100%;
+            gap: 8px;
+            padding: 10px 0;
+            margin-bottom: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #888 #f1f1f1;
+            -webkit-overflow-scrolling: touch;
         }
 
-        .symbols-scroll::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
+        .symbol-bar::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .symbol-bar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .symbol-bar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
         }
 
         .symbol-btn {
             background: white;
             border: 1px solid #ddd;
-            padding: 6px 12px;
+            padding: 8px 14px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
-            transition: all 0.2s;
-            min-width: 36px;
-            height: 34px;
+            font-size: 20px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            min-width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            line-height: 1;
+            text-align: center;
+            color: #333;
+            position: relative;
+            overflow: hidden;
+            text-rendering: optimizeLegibility;
         }
 
         .symbol-btn:hover {
-            background: #f0f0f0;
-            border-color: #bbb;
+            background: #f8f9fa;
+            border-color: #999;
             transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .scroll-btn {
+        .symbol-btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        .symbol-btn[data-loading="true"]::before {
+            content: '';
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #fff;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.8);
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
             border: 1px solid #ddd;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.5;
+            transition: border-color 0.2s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+        }
+
+        .file-input {
+            margin-bottom: 15px;
+        }
+
+        .file-input input[type="file"] {
+            display: none;
+        }
+
+        .file-input label {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.2s;
-            z-index: 1;
+            transition: all 0.2s ease;
         }
 
-        .scroll-btn:hover {
-            background: #f0f0f0;
-            border-color: #bbb;
+        .file-input label:hover {
+            background: #e9ecef;
+            border-color: #999;
         }
 
-        .scroll-left {
-            left: 5px;
+        button.submit-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
 
-        .scroll-right {
-            right: 5px;
+        button.submit-btn:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        button.submit-btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        #response {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #f9f9f9;
+            white-space: pre-wrap;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        #preview {
+            max-width: 100%;
+            margin-top: 10px;
+            display: none;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .loading {
+            position: relative;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            .symbol-btn {
+                padding: 6px 10px;
+                min-width: 36px;
+                height: 36px;
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>Mathematical Genius AI</h1>
-            <p>Ask any mathematical question and get step-by-step solutions!</p>
-        </div>
-
+        <h1>Mathematical Genius AI</h1>
+        
         <div class="input-section">
-            <div class="image-upload">
-                <div class="file-input-wrapper">
-                    <button class="upload-btn">Upload Image</button>
-                    <input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)">
-                </div>
-                <p>Upload an image of your mathematical problem (optional)</p>
-                <div class="image-preview" id="imagePreview">
-                    <img id="previewImg" src="" alt="Preview">
-                </div>
-                <button class="remove-image" id="removeImage" onclick="removeImage()">Remove Image</button>
+            <div class="symbol-bar">
+                <button class="symbol-btn" title="Integral">∫</button>
+                <button class="symbol-btn" title="Summation">∑</button>
+                <button class="symbol-btn" title="Product">∏</button>
+                <button class="symbol-btn" title="Square Root">√</button>
+                <button class="symbol-btn" title="Infinity">∞</button>
+                <button class="symbol-btn" title="Plus-Minus">±</button>
+                <button class="symbol-btn" title="Not Equal">≠</button>
+                <button class="symbol-btn" title="Less Than or Equal">≤</button>
+                <button class="symbol-btn" title="Greater Than or Equal">≥</button>
+                <button class="symbol-btn" title="Partial Derivative">∂</button>
+                <button class="symbol-btn" title="Alpha">α</button>
+                <button class="symbol-btn" title="Beta">β</button>
+                <button class="symbol-btn" title="Gamma">γ</button>
+                <button class="symbol-btn" title="Theta">θ</button>
+                <button class="symbol-btn" title="Pi">π</button>
+                <button class="symbol-btn" title="Union">∪</button>
+                <button class="symbol-btn" title="Intersection">∩</button>
+                <button class="symbol-btn" title="Element Of">∈</button>
+                <button class="symbol-btn" title="Not Element Of">∉</button>
+                <button class="symbol-btn" title="Subset">⊂</button>
+                <button class="symbol-btn" title="Superset">⊃</button>
+                <button class="symbol-btn" title="Delta">Δ</button>
+                <button class="symbol-btn" title="Nabla">∇</button>
+                <button class="symbol-btn" title="Therefore">∴</button>
+                <button class="symbol-btn" title="Because">∵</button>
             </div>
-
-            <div class="math-symbols-toolbar">
-                <button class="scroll-btn scroll-left" onclick="scrollSymbols('left')">←</button>
-                <div class="symbols-scroll" id="symbolsScroll">
-                    <button class="symbol-btn" onclick="insertSymbol('±')">±</button>
-                    <button class="symbol-btn" onclick="insertSymbol('×')">×</button>
-                    <button class="symbol-btn" onclick="insertSymbol('÷')">÷</button>
-                    <button class="symbol-btn" onclick="insertSymbol('≠')">≠</button>
-                    <button class="symbol-btn" onclick="insertSymbol('≈')">≈</button>
-                    <button class="symbol-btn" onclick="insertSymbol('≤')">≤</button>
-                    <button class="symbol-btn" onclick="insertSymbol('≥')">≥</button>
-                    <button class="symbol-btn" onclick="insertSymbol('α')">α</button>
-                    <button class="symbol-btn" onclick="insertSymbol('β')">β</button>
-                    <button class="symbol-btn" onclick="insertSymbol('γ')">γ</button>
-                    <button class="symbol-btn" onclick="insertSymbol('π')">π</button>
-                    <button class="symbol-btn" onclick="insertSymbol('θ')">θ</button>
-                    <button class="symbol-btn" onclick="insertSymbol('∑')">∑</button>
-                    <button class="symbol-btn" onclick="insertSymbol('∫')">∫</button>
-                    <button class="symbol-btn" onclick="insertSymbol('∂')">∂</button>
-                    <button class="symbol-btn" onclick="insertSymbol('√')">√</button>
-                    <button class="symbol-btn" onclick="insertSymbol('∞')">∞</button>
-                    <button class="symbol-btn" onclick="insertSymbol('∈')">∈</button>
-                    <button class="symbol-btn" onclick="insertSymbol('∉')">∉</button>
-                    <button class="symbol-btn" onclick="insertSymbol('⊂')">⊂</button>
-                    <button class="symbol-btn" onclick="insertSymbol('∪')">∪</button>
-                    <button class="symbol-btn" onclick="insertSymbol('∩')">∩</button>
-                </div>
-                <button class="scroll-btn scroll-right" onclick="scrollSymbols('right')">→</button>
+            
+            <textarea 
+                id="question" 
+                placeholder="Enter your mathematical question here..."
+                spellcheck="false"
+            ></textarea>
+            
+            <div class="file-input">
+                <label for="imageInput">
+                    Choose Image
+                    <input type="file" id="imageInput" accept="image/*">
+                </label>
+                <img id="preview" alt="Preview">
             </div>
-
-            <textarea id="question" placeholder="Enter your mathematical question here..."></textarea>
-            <button onclick="askQuestion()">Get Solution</button>
+            
+            <button class="submit-btn" onclick="askQuestion()">Get Answer</button>
         </div>
-
-        <div id="loading" class="loading">
-            Calculating solution...
-        </div>
-
-        <div class="response-section" id="response">
-            Your solution will appear here...
-        </div>
-
-        <div class="example-questions">
-            <h3>Try these example questions:</h3>
-            <div class="example-question" onclick="useExample(this)">What is the derivative of x^3 + 2x^2 - 4x + 1?</div>
-            <div class="example-question" onclick="useExample(this)">Solve the quadratic equation: 2x^2 + 5x - 12 = 0</div>
-            <div class="example-question" onclick="useExample(this)">Calculate the area of a circle with radius 7 units</div>
-        </div>
+        
+        <div id="response"></div>
     </div>
+
     <script type="module">
         import { askMathematician } from './index.js';
 
-        let currentImage = null;
+        // Font loading check
+        document.fonts.ready.then(() => {
+            console.log('Fonts are loaded');
+        }).catch(err => {
+            console.warn('Font loading error:', err);
+        });
 
-        window.handleImageUpload = function(event) {
-            const file = event.target.files[0];
+        // Make askQuestion available globally
+        window.askQuestion = async function() {
+            const questionEl = document.getElementById('question');
+            const responseEl = document.getElementById('response');
+            const imageInput = document.getElementById('imageInput');
+            const submitBtn = document.querySelector('.submit-btn');
+            
+            try {
+                // Show loading state
+                submitBtn.classList.add('loading');
+                submitBtn.textContent = 'Processing...';
+                responseEl.textContent = 'Thinking...';
+                
+                let imageData = null;
+                if (imageInput.files && imageInput.files[0]) {
+                    imageData = await getBase64(imageInput.files[0]);
+                }
+                
+                const response = await askMathematician(questionEl.value, imageData);
+                responseEl.textContent = response;
+            } catch (error) {
+                responseEl.textContent = `Error: ${error.message}`;
+            } finally {
+                // Reset button state
+                submitBtn.classList.remove('loading');
+                submitBtn.textContent = 'Get Answer';
+            }
+        };
+
+        // Handle symbol buttons with improved insertion
+        document.querySelectorAll('.symbol-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const textarea = document.getElementById('question');
+                const symbol = btn.textContent;
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+                const text = textarea.value;
+                
+                // Insert symbol with proper spacing
+                const beforeChar = start > 0 ? text[start - 1] : '';
+                const afterChar = end < text.length ? text[end] : '';
+                const needsSpaceBefore = beforeChar && !/\s/.test(beforeChar);
+                const needsSpaceAfter = afterChar && !/\s/.test(afterChar);
+                
+                const insertText = 
+                    (needsSpaceBefore ? ' ' : '') + 
+                    symbol + 
+                    (needsSpaceAfter ? ' ' : '');
+                
+                textarea.value = text.substring(0, start) + insertText + text.substring(end);
+                textarea.focus();
+                
+                // Place cursor after inserted symbol
+                const newPosition = start + insertText.length;
+                textarea.selectionStart = textarea.selectionEnd = newPosition;
+            });
+        });
+
+        // Enhanced image preview handling
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            const preview = document.getElementById('preview');
+            const file = e.target.files[0];
+            
             if (file) {
+                // Validate file type and size
+                if (!file.type.startsWith('image/')) {
+                    alert('Please select an image file.');
+                    this.value = '';
+                    return;
+                }
+                
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Please select an image smaller than 5MB.');
+                    this.value = '';
+                    return;
+                }
+                
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const preview = document.getElementById('imagePreview');
-                    const previewImg = document.getElementById('previewImg');
-                    const removeBtn = document.getElementById('removeImage');
-                    
-                    previewImg.src = e.target.result;
+                    preview.src = e.target.result;
                     preview.style.display = 'block';
-                    removeBtn.style.display = 'inline-block';
-                    currentImage = e.target.result;
+                };
+                reader.onerror = function() {
+                    alert('Error reading file.');
+                    preview.style.display = 'none';
                 };
                 reader.readAsDataURL(file);
-            }
-        };
-
-        window.removeImage = function() {
-            const preview = document.getElementById('imagePreview');
-            const previewImg = document.getElementById('previewImg');
-            const removeBtn = document.getElementById('removeImage');
-            const imageInput = document.getElementById('imageInput');
-            
-            preview.style.display = 'none';
-            previewImg.src = '';
-            removeBtn.style.display = 'none';
-            imageInput.value = '';
-            currentImage = null;
-        };
-
-        window.insertSymbol = function(symbol) {
-            const textarea = document.getElementById('question');
-            const start = textarea.selectionStart;
-            const end = textarea.selectionEnd;
-            const text = textarea.value;
-            const before = text.substring(0, start);
-            const after = text.substring(end);
-            
-            textarea.value = before + symbol + after;
-            textarea.focus();
-            textarea.selectionStart = textarea.selectionEnd = start + symbol.length;
-        };
-
-        window.scrollSymbols = function(direction) {
-            const container = document.getElementById('symbolsScroll');
-            const scrollAmount = 100;
-            if (direction === 'left') {
-                container.scrollLeft -= scrollAmount;
             } else {
-                container.scrollLeft += scrollAmount;
+                preview.style.display = 'none';
             }
-        };
+        });
 
-        window.askQuestion = async function() {
-            const questionInput = document.getElementById('question');
-            const responseDiv = document.getElementById('response');
-            const loadingDiv = document.getElementById('loading');
-            
-            if (!questionInput.value.trim() && !currentImage) {
-                alert('Please enter a question or upload an image');
-                return;
-            }
-
-            loadingDiv.style.display = 'block';
-            responseDiv.textContent = '';
-
-            try {
-                const answer = await askMathematician(questionInput.value, currentImage);
-                responseDiv.innerHTML = answer.replace(/\n/g, '<br>');
-            } catch (error) {
-                responseDiv.textContent = 'Error: ' + error.message;
-            } finally {
-                loadingDiv.style.display = 'none';
-            }
+        // Helper function to convert image to base64
+        function getBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
         }
 
-        window.useExample = function(element) {
-            document.getElementById('question').value = element.textContent;
-        }
+        // Handle textarea tab key
+        document.getElementById('question').addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                const start = this.selectionStart;
+                const end = this.selectionEnd;
+                this.value = this.value.substring(0, start) + '\t' + this.value.substring(end);
+                this.selectionStart = this.selectionEnd = start + 1;
+            }
+        });
     </script>
 </body>
 </html>
