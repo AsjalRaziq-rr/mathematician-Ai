@@ -4,258 +4,453 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mathematical Genius AI</title>
-    <!-- Preload fonts for better performance -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Math&family=Inter:wght@400;500;600&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Math&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
         body {
-            font-family: 'Noto Sans Math', 'STIX Two Math', 'Cambria Math', 'Latin Modern Math', 'Arial Unicode MS', 'Segoe UI Symbol', sans-serif;
+            font-family: 'Inter', 'Noto Sans Math', system-ui, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
 
-        .input-section {
-            margin-bottom: 20px;
+        .app-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .app-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .app-header p {
+            margin: 0.5rem 0 0;
+            color: #64748b;
+        }
+
+        .main-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .symbol-section {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .symbol-section h2 {
+            font-size: 1rem;
+            color: #64748b;
+            margin: 0 0 0.75rem;
+            font-weight: 500;
+        }
+
+        .symbol-categories {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e1 transparent;
+        }
+
+        .category-btn {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .category-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
         }
 
         .symbol-bar {
-            display: flex;
-            overflow-x: auto;
-            gap: 8px;
-            padding: 10px 0;
-            margin-bottom: 10px;
-            scrollbar-width: thin;
-            scrollbar-color: #888 #f1f1f1;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .symbol-bar::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        .symbol-bar::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 3px;
-        }
-
-        .symbol-bar::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 3px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
         }
 
         .symbol-btn {
+            aspect-ratio: 1;
             background: white;
-            border: 1px solid #ddd;
-            padding: 8px 14px;
-            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 20px;
-            font-family: inherit;
-            transition: all 0.2s ease;
-            min-width: 40px;
-            height: 40px;
+            font-size: 1.25rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
-            line-height: 1;
-            text-align: center;
-            color: #333;
+            transition: all 0.2s;
+            color: var(--text-color);
             position: relative;
-            overflow: hidden;
-            text-rendering: optimizeLegibility;
         }
 
         .symbol-btn:hover {
-            background: #f8f9fa;
-            border-color: #999;
+            background: #f1f5f9;
+            border-color: #94a3b8;
             transform: translateY(-1px);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow-sm);
         }
 
         .symbol-btn:active {
             transform: translateY(0);
-            box-shadow: none;
         }
 
-        .symbol-btn[data-loading="true"]::before {
-            content: '';
+        .symbol-btn::before {
+            content: attr(title);
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255,255,255,0.8);
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.25rem 0.5rem;
+            background: #334155;
+            color: white;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s;
+        }
+
+        .symbol-btn:hover::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        .input-section {
+            margin-top: 1.5rem;
         }
 
         textarea {
             width: 100%;
-            height: 120px;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-            margin-bottom: 10px;
-            resize: vertical;
+            min-height: 150px;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
             font-family: inherit;
-            line-height: 1.5;
-            transition: border-color 0.2s ease;
+            resize: vertical;
+            transition: all 0.2s;
+            background: #f8fafc;
+            margin-bottom: 1rem;
         }
 
         textarea:focus {
             outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            background: white;
         }
 
         .file-input {
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .file-input label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .file-input label:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+        }
+
+        .file-input label svg {
+            width: 1.25rem;
+            height: 1.25rem;
         }
 
         .file-input input[type="file"] {
             display: none;
         }
 
-        .file-input label {
-            display: inline-block;
-            padding: 8px 16px;
-            background: #f8f9fa;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        #preview {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+            box-shadow: var(--shadow-sm);
         }
 
-        .file-input label:hover {
-            background: #e9ecef;
-            border-color: #999;
-        }
-
-        button.submit-btn {
-            background: #007bff;
+        .submit-btn {
+            background: var(--primary-color);
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
             font-weight: 500;
-            transition: all 0.2s ease;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        button.submit-btn:hover {
-            background: #0056b3;
+        .submit-btn:hover {
+            background: var(--primary-hover);
             transform: translateY(-1px);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-sm);
         }
 
-        button.submit-btn:active {
+        .submit-btn:active {
             transform: translateY(0);
-            box-shadow: none;
+        }
+
+        .submit-btn svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .submit-btn.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
         }
 
         #response {
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background: #f9f9f9;
-            white-space: pre-wrap;
-            font-size: 15px;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            font-size: 1rem;
             line-height: 1.6;
+            white-space: pre-wrap;
         }
 
-        #preview {
-            max-width: 100%;
-            margin-top: 10px;
+        #response:empty {
             display: none;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .loading {
+        .response-container {
             position: relative;
-            opacity: 0.7;
-            pointer-events: none;
         }
 
-        @media (max-width: 600px) {
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+        }
+
+        .copy-btn svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        @media (max-width: 640px) {
             .container {
-                padding: 15px;
+                margin: 1rem auto;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .symbol-bar {
+                grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
             }
 
             .symbol-btn {
-                padding: 6px 10px;
-                min-width: 36px;
-                height: 36px;
-                font-size: 18px;
+                font-size: 1rem;
             }
+
+            .submit-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Loading animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .loading-text {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        /* Category animations */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .symbol-category {
+            animation: slideIn 0.3s ease-out;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Mathematical Genius AI</h1>
-        
-        <div class="input-section">
-            <div class="symbol-bar">
-                <button class="symbol-btn" title="Integral">∫</button>
-                <button class="symbol-btn" title="Summation">∑</button>
-                <button class="symbol-btn" title="Product">∏</button>
-                <button class="symbol-btn" title="Square Root">√</button>
-                <button class="symbol-btn" title="Infinity">∞</button>
-                <button class="symbol-btn" title="Plus-Minus">±</button>
-                <button class="symbol-btn" title="Not Equal">≠</button>
-                <button class="symbol-btn" title="Less Than or Equal">≤</button>
-                <button class="symbol-btn" title="Greater Than or Equal">≥</button>
-                <button class="symbol-btn" title="Partial Derivative">∂</button>
-                <button class="symbol-btn" title="Alpha">α</button>
-                <button class="symbol-btn" title="Beta">β</button>
-                <button class="symbol-btn" title="Gamma">γ</button>
-                <button class="symbol-btn" title="Theta">θ</button>
-                <button class="symbol-btn" title="Pi">π</button>
-                <button class="symbol-btn" title="Union">∪</button>
-                <button class="symbol-btn" title="Intersection">∩</button>
-                <button class="symbol-btn" title="Element Of">∈</button>
-                <button class="symbol-btn" title="Not Element Of">∉</button>
-                <button class="symbol-btn" title="Subset">⊂</button>
-                <button class="symbol-btn" title="Superset">⊃</button>
-                <button class="symbol-btn" title="Delta">Δ</button>
-                <button class="symbol-btn" title="Nabla">∇</button>
-                <button class="symbol-btn" title="Therefore">∴</button>
-                <button class="symbol-btn" title="Because">∵</button>
+        <header class="app-header">
+            <h1>Mathematical Genius AI</h1>
+            <p>Your intelligent mathematical assistant powered by AI</p>
+        </header>
+
+        <main class="main-content">
+            <div class="symbol-section">
+                <h2>Mathematical Symbols</h2>
+                <div class="symbol-categories">
+                    <button class="category-btn active" data-category="basic">Basic</button>
+                    <button class="category-btn" data-category="algebra">Algebra</button>
+                    <button class="category-btn" data-category="calculus">Calculus</button>
+                    <button class="category-btn" data-category="sets">Sets</button>
+                    <button class="category-btn" data-category="greek">Greek</button>
+                    <button class="category-btn" data-category="logic">Logic</button>
+                </div>
+                
+                <div class="symbol-bar" id="symbolBar">
+                    <!-- Basic -->
+                    <button class="symbol-btn" title="Plus-Minus">±</button>
+                    <button class="symbol-btn" title="Multiplication">×</button>
+                    <button class="symbol-btn" title="Division">÷</button>
+                    <button class="symbol-btn" title="Not Equal">≠</button>
+                    <button class="symbol-btn" title="Less Than or Equal">≤</button>
+                    <button class="symbol-btn" title="Greater Than or Equal">≥</button>
+                    <button class="symbol-btn" title="Approximately">≈</button>
+                    <button class="symbol-btn" title="Square Root">√</button>
+                    <button class="symbol-btn" title="Infinity">∞</button>
+                    
+                    <!-- Algebra -->
+                    <button class="symbol-btn" title="Sum">∑</button>
+                    <button class="symbol-btn" title="Product">∏</button>
+                    <button class="symbol-btn" title="Square">²</button>
+                    <button class="symbol-btn" title="Cube">³</button>
+                    
+                    <!-- Calculus -->
+                    <button class="symbol-btn" title="Integral">∫</button>
+                    <button class="symbol-btn" title="Partial Derivative">∂</button>
+                    <button class="symbol-btn" title="Nabla">∇</button>
+                    <button class="symbol-btn" title="Delta">Δ</button>
+                    
+                    <!-- Sets -->
+                    <button class="symbol-btn" title="Union">∪</button>
+                    <button class="symbol-btn" title="Intersection">∩</button>
+                    <button class="symbol-btn" title="Element Of">∈</button>
+                    <button class="symbol-btn" title="Not Element Of">∉</button>
+                    <button class="symbol-btn" title="Subset">⊂</button>
+                    <button class="symbol-btn" title="Superset">⊃</button>
+                    
+                    <!-- Greek -->
+                    <button class="symbol-btn" title="Alpha">α</button>
+                    <button class="symbol-btn" title="Beta">β</button>
+                    <button class="symbol-btn" title="Gamma">γ</button>
+                    <button class="symbol-btn" title="Theta">θ</button>
+                    <button class="symbol-btn" title="Pi">π</button>
+                    
+                    <!-- Logic -->
+                    <button class="symbol-btn" title="Therefore">∴</button>
+                    <button class="symbol-btn" title="Because">∵</button>
+                    <button class="symbol-btn" title="For All">∀</button>
+                    <button class="symbol-btn" title="Exists">∃</button>
+                </div>
             </div>
-            
-            <textarea 
-                id="question" 
-                placeholder="Enter your mathematical question here..."
-                spellcheck="false"
-            ></textarea>
-            
-            <div class="file-input">
-                <label for="imageInput">
-                    Choose Image
-                    <input type="file" id="imageInput" accept="image/*">
-                </label>
+
+            <div class="input-section">
+                <textarea 
+                    id="question" 
+                    placeholder="Enter your mathematical question here... Use the symbol buttons above to add mathematical symbols."
+                    spellcheck="false"
+                ></textarea>
+                
+                <div class="file-input">
+                    <label for="imageInput">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        Upload Image
+                        <input type="file" id="imageInput" accept="image/*">
+                    </label>
+                </div>
                 <img id="preview" alt="Preview">
+                
+                <button class="submit-btn" onclick="askQuestion()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    Get Answer
+                </button>
             </div>
-            
-            <button class="submit-btn" onclick="askQuestion()">Get Answer</button>
-        </div>
-        
-        <div id="response"></div>
+
+            <div class="response-container">
+                <div id="response"></div>
+                <button class="copy-btn" id="copyBtn" style="display: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                </button>
+            </div>
+        </main>
     </div>
 
     <script type="module">
@@ -268,18 +463,143 @@
             console.warn('Font loading error:', err);
         });
 
+        // Symbol categories
+        const categories = {
+            basic: ['±', '×', '÷', '≠', '≤', '≥', '≈', '√', '∞'],
+            algebra: ['∑', '∏', '²', '³'],
+            calculus: ['∫', '∂', '∇', 'Δ'],
+            sets: ['∪', '∩', '∈', '∉', '⊂', '⊃'],
+            greek: ['α', 'β', 'γ', 'θ', 'π'],
+            logic: ['∴', '∵', '∀', '∃']
+        };
+
+        // Handle category switching
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Get category symbols
+                const category = btn.dataset.category;
+                const symbols = categories[category];
+
+                // Update symbol bar
+                const symbolBar = document.getElementById('symbolBar');
+                symbolBar.style.opacity = '0';
+                
+                setTimeout(() => {
+                    // Clear current symbols
+                    symbolBar.innerHTML = '';
+                    
+                    // Add new symbols
+                    symbols.forEach(symbol => {
+                        const button = document.createElement('button');
+                        button.className = 'symbol-btn symbol-category';
+                        button.textContent = symbol;
+                        button.title = getSymbolName(symbol);
+                        symbolBar.appendChild(button);
+                    });
+                    
+                    // Fade in
+                    symbolBar.style.opacity = '1';
+                    
+                    // Reattach click handlers
+                    attachSymbolHandlers();
+                }, 200);
+            });
+        });
+
+        function getSymbolName(symbol) {
+            const names = {
+                '±': 'Plus-Minus',
+                '×': 'Multiplication',
+                '÷': 'Division',
+                '≠': 'Not Equal',
+                '≤': 'Less Than or Equal',
+                '≥': 'Greater Than or Equal',
+                '≈': 'Approximately',
+                '√': 'Square Root',
+                '∞': 'Infinity',
+                '∑': 'Sum',
+                '∏': 'Product',
+                '²': 'Square',
+                '³': 'Cube',
+                '∫': 'Integral',
+                '∂': 'Partial Derivative',
+                '∇': 'Nabla',
+                'Δ': 'Delta',
+                '∪': 'Union',
+                '∩': 'Intersection',
+                '∈': 'Element Of',
+                '∉': 'Not Element Of',
+                '⊂': 'Subset',
+                '⊃': 'Superset',
+                'α': 'Alpha',
+                'β': 'Beta',
+                'γ': 'Gamma',
+                'θ': 'Theta',
+                'π': 'Pi',
+                '∴': 'Therefore',
+                '∵': 'Because',
+                '∀': 'For All',
+                '∃': 'Exists'
+            };
+            return names[symbol] || symbol;
+        }
+
+        function attachSymbolHandlers() {
+            document.querySelectorAll('.symbol-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const textarea = document.getElementById('question');
+                    const symbol = btn.textContent;
+                    const start = textarea.selectionStart;
+                    const end = textarea.selectionEnd;
+                    const text = textarea.value;
+                    
+                    const beforeChar = start > 0 ? text[start - 1] : '';
+                    const afterChar = end < text.length ? text[end] : '';
+                    const needsSpaceBefore = beforeChar && !/\s/.test(beforeChar);
+                    const needsSpaceAfter = afterChar && !/\s/.test(afterChar);
+                    
+                    const insertText = 
+                        (needsSpaceBefore ? ' ' : '') + 
+                        symbol + 
+                        (needsSpaceAfter ? ' ' : '');
+                    
+                    textarea.value = text.substring(0, start) + insertText + text.substring(end);
+                    textarea.focus();
+                    
+                    const newPosition = start + insertText.length;
+                    textarea.selectionStart = textarea.selectionEnd = newPosition;
+
+                    // Add subtle feedback animation
+                    btn.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        btn.style.transform = '';
+                    }, 100);
+                });
+            });
+        }
+
         // Make askQuestion available globally
         window.askQuestion = async function() {
             const questionEl = document.getElementById('question');
             const responseEl = document.getElementById('response');
             const imageInput = document.getElementById('imageInput');
             const submitBtn = document.querySelector('.submit-btn');
+            const copyBtn = document.getElementById('copyBtn');
             
             try {
-                // Show loading state
                 submitBtn.classList.add('loading');
-                submitBtn.textContent = 'Processing...';
-                responseEl.textContent = 'Thinking...';
+                submitBtn.innerHTML = `
+                    <svg class="animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Processing...
+                `;
+                responseEl.innerHTML = '<span class="loading-text">Thinking...</span>';
                 
                 let imageData = null;
                 if (imageInput.files && imageInput.files[0]) {
@@ -288,42 +608,36 @@
                 
                 const response = await askMathematician(questionEl.value, imageData);
                 responseEl.textContent = response;
+                copyBtn.style.display = 'block';
             } catch (error) {
                 responseEl.textContent = `Error: ${error.message}`;
             } finally {
-                // Reset button state
                 submitBtn.classList.remove('loading');
-                submitBtn.textContent = 'Get Answer';
+                submitBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    Get Answer
+                `;
             }
         };
 
-        // Handle symbol buttons with improved insertion
-        document.querySelectorAll('.symbol-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const textarea = document.getElementById('question');
-                const symbol = btn.textContent;
-                const start = textarea.selectionStart;
-                const end = textarea.selectionEnd;
-                const text = textarea.value;
-                
-                // Insert symbol with proper spacing
-                const beforeChar = start > 0 ? text[start - 1] : '';
-                const afterChar = end < text.length ? text[end] : '';
-                const needsSpaceBefore = beforeChar && !/\s/.test(beforeChar);
-                const needsSpaceAfter = afterChar && !/\s/.test(afterChar);
-                
-                const insertText = 
-                    (needsSpaceBefore ? ' ' : '') + 
-                    symbol + 
-                    (needsSpaceAfter ? ' ' : '');
-                
-                textarea.value = text.substring(0, start) + insertText + text.substring(end);
-                textarea.focus();
-                
-                // Place cursor after inserted symbol
-                const newPosition = start + insertText.length;
-                textarea.selectionStart = textarea.selectionEnd = newPosition;
-            });
+        // Copy button functionality
+        document.getElementById('copyBtn').addEventListener('click', async () => {
+            const response = document.getElementById('response').textContent;
+            await navigator.clipboard.writeText(response);
+            
+            const copyBtn = document.getElementById('copyBtn');
+            const originalHTML = copyBtn.innerHTML;
+            copyBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+            `;
+            
+            setTimeout(() => {
+                copyBtn.innerHTML = originalHTML;
+            }, 2000);
         });
 
         // Enhanced image preview handling
@@ -332,7 +646,6 @@
             const file = e.target.files[0];
             
             if (file) {
-                // Validate file type and size
                 if (!file.type.startsWith('image/')) {
                     alert('Please select an image file.');
                     this.value = '';
@@ -349,6 +662,12 @@
                 reader.onload = function(e) {
                     preview.src = e.target.result;
                     preview.style.display = 'block';
+                    
+                    // Add fade-in animation
+                    preview.style.opacity = '0';
+                    setTimeout(() => {
+                        preview.style.opacity = '1';
+                    }, 50);
                 };
                 reader.onerror = function() {
                     alert('Error reading file.');
@@ -380,6 +699,9 @@
                 this.selectionStart = this.selectionEnd = start + 1;
             }
         });
+
+        // Initial setup
+        attachSymbolHandlers();
     </script>
 </body>
 </html>
